@@ -13,17 +13,20 @@ namespace Demo_CustomControl
             InitializeComponent();
         }
 
-        public static readonly BindableProperty ButtonCommandProperty = BindableProperty.Create(nameof(ButtonCommand), typeof(ICommand), typeof(Button));
+        public static readonly BindableProperty ButtonCommandProperty = BindableProperty.Create(nameof(ButtonCommand), typeof(ICommand), typeof(Button), propertyChanged: OnButtonCommandChanged);
+
         public ICommand ButtonCommand
         {
             get { return (ICommand)GetValue(ButtonCommandProperty); }
             set { SetValue(ButtonCommandProperty, value); }
         }
 
-        private void BtnCommand_Clicked(object sender, EventArgs e)
+        private static void OnButtonCommandChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            ButtonCommand?.Execute(null);
+            if (bindable is CustomControl customControl)
+            {
+                customControl.BtnCommand.Command = (ICommand)newValue;
+            }
         }
-
     }
 }
