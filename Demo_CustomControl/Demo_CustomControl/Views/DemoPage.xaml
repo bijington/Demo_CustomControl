@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:demo_customcontrol="clr-namespace:Demo_CustomControl"
+             xmlns:vm="clr-namespace:Demo_CustomControl.ViewModels"
+             x:Class="Demo_CustomControl.Views.DemoPage"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.BindingContext>
+        <vm:DemoViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        
+        <StackLayout>
+            <Label Text="Demo"/>
+            <demo_customcontrol:CustomControl ButtonCommand="{Binding DemoCommand}"/>
+
+            <Button x:Name="BtnCommand" Text="Regular Button in Page" Command="{Binding DemoCommand}"/>
+
+            <StackLayout Orientation="Horizontal">
+
+                <Label Text="Enable/Disable Button"/>
+                <Switch IsToggled="{Binding IsToggled}"/>
+                
+            </StackLayout>
+
+            <Label Text="Question: Why do both Buttons do not react the same ?"/>
+        </StackLayout>
+        
+    </ContentPage.Content>
+</ContentPage>
